@@ -1,0 +1,32 @@
+
+.centered {
+    margin: auto;
+    margin-top: 6rem;
+}
+
+button {
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    background-color: #064420;
+    opacity: .7;
+    color: white;
+    border: none;
+    text-align: center;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+
+  button:hover,
+  button:active {
+    opacity: 1;
+    cursor: pointer;
+ }
+  
+  button:disabled,
+  button:disabled:hover,
+  button:disabled:active {
+  background-color: #ccc;
+  color: #292929;
+  border-color: #ccc;
+  cursor: not-allowed;
+}

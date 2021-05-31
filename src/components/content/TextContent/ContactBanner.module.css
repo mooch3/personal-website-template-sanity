@@ -1,0 +1,25 @@
+.banner-content {
+    width: 100%;
+    background-color: #535a55;
+    padding: 5% 5%;
+    line-height: 1.6;
+    color: white;
+    text-align: center;
+}
+
+.banner-content h1 {
+    font-size: 3rem;
+    font-weight: 400;
+    
+}
+.banner-content ul {
+    list-style-type: none;
+    margin: auto;
+    padding: 0;
+}
+
+.banner-content li {
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+}

@@ -1,0 +1,19 @@
+.text-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3rem;
+    line-height: 1.6;
+}
+
+.text-banner h1 {
+    font-size: 4rem;
+    font-weight: 300;
+}
+
+.text-banner p {
+    padding: 0 7%;
+    font-size: 1.5rem;
+    color: #064420;
+}

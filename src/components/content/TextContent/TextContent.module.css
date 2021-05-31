@@ -1,0 +1,44 @@
+.text-content {
+    width: 100%;
+    background-color: #e4efe7;
+    padding: 5% 5%;
+    margin: 2rem 3rem;
+    line-height: 1.6;
+}
+
+.text-content h1 {
+    font-weight: 400;
+}
+
+.text-content p {
+    font-weight: 300;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+}
+
+.btn {
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    background-color: #064420;
+    opacity: .7;
+    color: white;
+    border: none;
+    text-align: center;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.btn:hover,
+.btn:active {
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* @media screen and (max-width: 900px) {
+    .text-content {
+        margin: auto;
+        width: 50%;
+        text-align: center;
+        line-height: 1.6;
+    }
+} */

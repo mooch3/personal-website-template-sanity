@@ -1,0 +1,13 @@
+.image {
+    height: auto;
+    width: 30%;
+    margin: 2rem 3rem;
+}
+
+@media screen and (max-width: 1300px) {
+    .image {
+        height: 100%;
+        width: 30%;
+        margin: 2rem 3rem;
+    }
+}

@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+    margin: 0 auto 4rem auto;
+    background-color: #e4efe7;
+    padding: 3rem;
+}
+
+.about {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.about p {
+    font-weight: 300;
+    font-size: 1.4rem;
+}
+
+.about h1 {
+    font-weight: 400;
+}
