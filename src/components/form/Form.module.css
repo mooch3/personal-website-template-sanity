@@ -1,3 +1,7 @@
+.form {
+    margin: 4rem;
+}
+
 .form-control {
     margin: 3rem
   }
@@ -67,7 +71,7 @@
   }
 
   button {
-    padding: .5rem 1rem;
+    padding: 1rem 2.5rem;
     font-size: 1rem;
     background-color: #064420;
     opacity: .7;

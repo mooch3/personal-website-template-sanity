@@ -1,15 +1,16 @@
 .banner-content {
     width: 100%;
     background-color: #535a55;
-    padding: 5% 5%;
+    padding: 2% 5%;
     line-height: 1.6;
-    color: white;
+    color: #faf1e6;
     text-align: center;
 }
 
 .banner-content h1 {
     font-size: 3rem;
     font-weight: 400;
+    margin-bottom: 4rem;
     
 }
 .banner-content ul {
@@ -20,6 +21,6 @@
 
 .banner-content li {
     font-weight: 300;
-    font-size: 1.5rem;
-    margin-bottom: 3rem;
+    font-size: 2rem;
+    margin: 2rem;
 }

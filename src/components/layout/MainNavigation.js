@@ -1,32 +1,21 @@
-import { NavLink } from 'react-router-dom';
-
 import Logo from './logo/Logo';
 import classes from './MainNavigation.module.css';
+import MenuToggler from './MenuToggler/MenuToggler';
+import SideDrawer from './SideDrawer/SideDrawer';
+import NavItems from './NavItems/NavItems';
 
+const MainNavigation = (props) => {
 
-const MainNavigation = () => {
     return (
         <header className={classes.header}>
+            <MenuToggler openNav={props.openNav} />
             <Logo />
             <nav className={classes.nav}>
-                <ul>
-                    <li>
-                        <NavLink activeClassName={classes.active} to="/" exact>home.</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName={classes.active} to="/about">about.</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName={classes.active} to="/publications">publications.</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName={classes.active} to="inner-healing">inner healing.</NavLink>
-                    </li>
-                    <li>
-                        <NavLink activeClassName={classes.active} to="/contact">contact.</NavLink>
-                    </li>
-                </ul>
+                <NavItems />
             </nav>
+            <SideDrawer
+            open={props.open}
+            />
         </header>
     )
 }

@@ -1,14 +1,20 @@
+import React, { Suspense } from 'react';
+
 import Layout from './components/layout/Layout';
 import { Switch, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Publications from './pages/Publications';
-import Contact from './pages/Contact';
-import InnerHealing from './pages/InnerHealing';
+import LoadingSpinner from './components/ui/LoadingSpinner';
+
+const Home = React.lazy(() => import('./pages/Home'));
+const About = React.lazy(() => import('./pages/About'));
+const Publications = React.lazy(() => import('./pages/Publications'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const InnerHealing = React.lazy(() => import('./pages/InnerHealing'));
+
 
 function App() {
   return (
    <Layout>
+    <Suspense fallback={<div className="centered"><LoadingSpinner></LoadingSpinner></div>}>
       <Switch>
         <Route path="/" exact>
           <Home />
@@ -26,6 +32,7 @@ function App() {
           <InnerHealing />
         </Route>
       </Switch>
+      </Suspense>
    </Layout>
   );
 }

@@ -1,10 +1,19 @@
+import { useState } from 'react';
 import classes from './Form.module.css';
 import useForm from '../../hooks/use-form';
+import * as emailjs from 'emailjs-com';
+import{ init } from 'emailjs-com';
+
+init("user_xaMfEHddsv1BaMT7btgvX");
 
 const isNotEmpty = value => value.trim().length > 0;
 const isEmail = value => value.includes('@');
 
-const Form = () => {
+const Form = (props) => {
+    const [status, setStatus] = useState('Submit');
+    const [isError, setIsError] = useState(null)
+
+
     const {
         isValid: fNameValid,
         hasError: fNameHasError,
@@ -71,92 +80,131 @@ const Form = () => {
     const subjectInputClasses = !subjectHasError ? classes['form-control'] : invalidHelper;
     const messageInputClasses = !messageHasError ? classes['form-control'] : invalidHelper;
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+
+        console.log(event.target.fName)
+
         if (!formIsValid) {
             return;
         }
 
-        console.log(fNameValue, lNameValue, subjectValue, emailValue, messageValue)
+        // TODO: send errors to user if problems arise
 
-        messageReset();
-        fNameReset();
-        lNameReset();
-        emailReset();
-        subjectReset();
+        // contact server to send email
+        setStatus('Sending...');
+
+        let templateParams = {
+            email: emailValue,
+            message: messageValue,
+            subject: subjectValue,
+            fName: fNameValue,
+            lName: lNameValue
+        }
+
+        emailjs.send(
+            'service_klhp62d',
+            'template_ta0j1jr',
+            templateParams,
+        ).then((res) => {
+            console.log(res);
+
+            setStatus("Submit");
+
+            messageReset();
+            fNameReset();
+            lNameReset();
+            emailReset();
+            subjectReset();
+    
+            props.closeContact();
+        }).catch(err => {
+            console.log(err.text);
+            setIsError(true);
+            return;
+        });
+
+
+
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className={classes['control-group']}>
-                <div className={fNameInputClasses}>
-                    <label htmlFor="first-name">First Name</label>
-                    <input
-                        onBlur={fNameBlurHandler}
-                        onChange={fNameValueChangedHandler}
-                        value={fNameValue}
-                        autoComplete="off"
-                        type="text"
-                        id="first-name" />
-                        {fNameHasError && <p className={classes['invalid-notif']}>Please enter a first name.</p>}
-                </div>
-                <div className={lNameInputClasses}>
-                    <label htmlFor="last-name">Last Name</label>
-                    <input
-                        onBlur={lNameBlurHandler}
-                        onChange={lNameValueChangedHandler}
-                        value={lNameValue}
-                        autoComplete="off"
-                        type="text"
-                        id="last-name"
-                    />
-                    {lNameHasError && <p className={classes['invalid-notif']}>Please enter a last name.</p>}
-                </div>
-            </div>
-            <div className={classes['control-group']}>
-                <div className={emailInputClasses}>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        onBlur={emailBlurHandler}
-                        onChange={emailValueChangedHandler}
-                        value={emailValue}
-                        autoComplete="off"
-                        type="email"
-                        id="email"
-                    />
-                    {emailHasError && <p className={classes['invalid-notif']}>Please enter an email.</p>}
-                    
-                </div>
-                <div className={subjectInputClasses}>
-                    <label htmlFor="subject">Subject</label>
-                    <input
-                        onBlur={subjectBlurHandler}
-                        onChange={subjectValueChangedHandler}
-                        value={subjectValue}
-                        autoComplete="off"
-                        type="text"
-                        id="subject"
-                    />
-                    {subjectHasError && <p className={classes['invalid-notif']}>Please enter a subject.</p>}
-                </div>
-            </div>
-            <div className={messageInputClasses}>
-                <label htmlFor="message">Message</label>
-                <textarea
-                    onBlur={messageBlurHandler}
-                    onChange={messageValueChangedHandler}
-                    value={messageValue}
-                    autoComplete="off"
-                    type="text"
-                    id="message"
-                />
-                {messageHasError && <p className={classes['invalid-notif']}>Please enter a message.</p>}
-            </div>
-            <div className={classes['form-actions']}>
-                <button disabled={!formIsValid}>Submit</button>
-            </div>
+        <>
+            {isError ? <div className="centered"><h1>We could not complete your request at this time.</h1></div>
+            
+            :
+                <form onSubmit={handleSubmit} className={classes.form}>
+                    <div className={classes['control-group']}>
+                        <div className={fNameInputClasses}>
+                            <label htmlFor="fName">First Name</label>
+                            <input
+                                onBlur={fNameBlurHandler}
+                                onChange={fNameValueChangedHandler}
+                                value={fNameValue}
+                                autoComplete="off"
+                                type="text"
+                                id="fName" />
+                            {fNameHasError && <p className={classes['invalid-notif']}>Please enter a first name.</p>}
+                        </div>
+                        <div className={lNameInputClasses}>
+                            <label htmlFor="lName">Last Name</label>
+                            <input
+                                onBlur={lNameBlurHandler}
+                                onChange={lNameValueChangedHandler}
+                                value={lNameValue}
+                                autoComplete="off"
+                                type="text"
+                                id="lName"
+                            />
+                            {lNameHasError && <p className={classes['invalid-notif']}>Please enter a last name.</p>}
+                        </div>
+                    </div>
+                    <div className={classes['control-group']}>
+                        <div className={emailInputClasses}>
+                            <label htmlFor="email">Email</label>
+                            <input
+                                onBlur={emailBlurHandler}
+                                onChange={emailValueChangedHandler}
+                                value={emailValue}
+                                autoComplete="off"
+                                type="email"
+                                id="email"
+                            />
+                            {emailHasError && <p className={classes['invalid-notif']}>Please enter an email.</p>}
 
-        </form>
+                        </div>
+                        <div className={subjectInputClasses}>
+                            <label htmlFor="subject">Subject</label>
+                            <input
+                                onBlur={subjectBlurHandler}
+                                onChange={subjectValueChangedHandler}
+                                value={subjectValue}
+                                autoComplete="off"
+                                type="text"
+                                id="subject"
+                            />
+                            {subjectHasError && <p className={classes['invalid-notif']}>Please enter a subject.</p>}
+                        </div>
+                    </div>
+                    <div className={messageInputClasses}>
+                        <label htmlFor="message">Message</label>
+                        <textarea
+                            onBlur={messageBlurHandler}
+                            onChange={messageValueChangedHandler}
+                            value={messageValue}
+                            autoComplete="off"
+                            type="text"
+                            id="message"
+                        />
+                        {messageHasError && <p className={classes['invalid-notif']}>Please enter a message.</p>}
+                    </div>
+                    <div className={classes['form-actions']}>
+                        <button disabled={!formIsValid}>{status}</button>
+                    </div>
+
+                </form>
+            }
+        </>
     )
 }
 

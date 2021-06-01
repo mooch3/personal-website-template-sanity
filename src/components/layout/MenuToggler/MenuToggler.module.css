@@ -1,0 +1,24 @@
+.show-nav {
+    width: 40px;
+    height: 50%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 4px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 0;
+}
+
+.show-nav div {
+    width: 90%;
+    height: 3px;
+    background-color: #faf1e6;
+}
+
+@media (min-width: 800px) {
+    .show-nav {
+        display: none;
+    }
+}
