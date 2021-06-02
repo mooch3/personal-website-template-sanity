@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
 import Layout from './components/layout/Layout';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -30,6 +30,9 @@ function App() {
         </Route>
         <Route path="/inner-healing">
           <InnerHealing />
+        </Route>
+        <Route path="*">
+          <Redirect to="/" />
         </Route>
       </Switch>
       </Suspense>

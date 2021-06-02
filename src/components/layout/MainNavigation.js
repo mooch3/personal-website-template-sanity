@@ -2,7 +2,7 @@ import Logo from './logo/Logo';
 import classes from './MainNavigation.module.css';
 import MenuToggler from './MenuToggler/MenuToggler';
 import SideDrawer from './SideDrawer/SideDrawer';
-import NavItems from './NavItems/NavItems';
+import TopMenu from './TopMenu/TopMenu';
 
 const MainNavigation = (props) => {
 
@@ -10,11 +10,9 @@ const MainNavigation = (props) => {
         <header className={classes.header}>
             <MenuToggler openNav={props.openNav} />
             <Logo />
-            <nav className={classes.nav}>
-                <NavItems />
-            </nav>
+            <TopMenu />
             <SideDrawer
-            open={props.open}
+                open={props.open}
             />
         </header>
     )

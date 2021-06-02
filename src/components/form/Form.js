@@ -4,14 +4,14 @@ import useForm from '../../hooks/use-form';
 import * as emailjs from 'emailjs-com';
 import{ init } from 'emailjs-com';
 
-init("user_xaMfEHddsv1BaMT7btgvX");
+init('user_6PW4Sj6NrbdeJhHRfz2CE');
 
 const isNotEmpty = value => value.trim().length > 0;
 const isEmail = value => value.includes('@');
 
 const Form = (props) => {
     const [status, setStatus] = useState('Submit');
-    const [isError, setIsError] = useState(null)
+    const [isError, setIsError] = useState(null);
 
 
     const {
@@ -103,8 +103,8 @@ const Form = (props) => {
         }
 
         emailjs.send(
-            'service_klhp62d',
-            'template_ta0j1jr',
+            'service_piyf4vl',
+            'template_ls68o8d',
             templateParams,
         ).then((res) => {
             console.log(res);

@@ -8,31 +8,3 @@
     background-color: #064420
   }
   
-  .nav ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav li {
-    margin-left: 1.7rem;
-    font-size: 1.25rem;
-  }
-  
-  .nav a {
-    text-decoration: none;
-    color: #faf1e6;
-  }
-  
-  .nav a:hover,
-  .nav a:active,
-  .nav a.active {
-    color: #fff5b7;
-  }
-  
-  @media (max-width: 800px) {
-    .nav {
-      display: none;
-    }
-  }

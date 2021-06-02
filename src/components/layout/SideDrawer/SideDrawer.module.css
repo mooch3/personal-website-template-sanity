@@ -33,26 +33,3 @@
     transform: translateX(-100%)
 }
 
-.nav ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    margin-top: 3rem;
-    padding: 0;
-  }
-  
-  .nav li {
-    font-size: 1.25rem;
-    margin: 2rem;
-  }
-  
-  .nav a {
-    text-decoration: none;
-    color: #faf1e6;
-  }
-  
-  .nav a:hover,
-  .nav a:active,
-  .nav a.active {
-    color: #fff5b7;
-  }
