@@ -15,8 +15,15 @@
 .about p {
     font-weight: 300;
     font-size: 1.4rem;
+    text-align: center;
 }
 
 .about h1 {
     font-weight: 400;
+}
+
+@media screen and (max-width: 650px) {
+    .about {
+        width: 100%;
+    }
 }

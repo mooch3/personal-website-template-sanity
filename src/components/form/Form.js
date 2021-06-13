@@ -116,8 +116,6 @@ const Form = (props) => {
             lNameReset();
             emailReset();
             subjectReset();
-    
-            props.closeContact();
         }).catch(err => {
             console.log(err.text);
             setIsError(true);

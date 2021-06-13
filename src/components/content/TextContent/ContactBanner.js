@@ -6,8 +6,7 @@ const ContactBanner = () => {
                 <h1>Contact Me</h1>
                 <ul>
                     <li>Kevin Smith, J.D.</li>
-                    <li>Email: email@email.com</li>
-                    <li>Tel: +1 657-432-9876</li>
+                    <li>kevincartersmithinc@gmail.com</li>
                 </ul>
             </div>
         )

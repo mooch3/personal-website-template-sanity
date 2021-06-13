@@ -5,8 +5,8 @@ const TextContent = (props) => {
     return (
         <div className={classes['text-content']}>
             <h1>{props.header}</h1>
-            <p>{props.content}</p>
-            {!props.noBtn && <NavLink to={`/${props.header === 'Inner Healing' ? 'inner-healing' : props.header.toLowerCase()}`} className={classes.btn}>{props.header}</NavLink>}
+            <div>{props.content}</div>
+            {!props.noBtn && <NavLink to={`/${props.header === "Inner/Physical Healing and Deliverance" ? 'inner-healing' : props.header.toLowerCase()}`} className={classes.btn}>{props.header}</NavLink>}
             
         </div>
     )
