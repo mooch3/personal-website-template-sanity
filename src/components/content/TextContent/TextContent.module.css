@@ -1,7 +1,7 @@
 .text-content {
     width: 100%;
     background-color: #e4efe7;
-    padding: 2% 5%;
+    padding: 3% 5% 5% 5%;
     margin: 3rem;
     line-height: 1.6;
 }
@@ -14,10 +14,15 @@
     font-weight: 300;
 }
 
+.text-content div {
+    line-height: 1.6;
+}
+
 .text-content p {
     font-weight: 300;
     font-size: 1rem;
     margin-bottom: 1.5rem;
+    line-height: 2;
 }
 .text-content p:last-child {
     margin-bottom: 3rem;

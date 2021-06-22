@@ -1,18 +1,31 @@
 .footer {
     width: 100%;
-    height: 150px;
+    height: auto;
     background-color: #064420;
-    text-align: center;
     color: #faf1e6;
-    padding: 3rem;
+    padding: 2%;
     line-height: 1.6;
     margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.footer h3 {
+    color: #faf1e6;
+    text-transform: uppercase;
+    letter-spacing: .3em;
+    font-size: .8rem;
+    margin-top: 2rem;
+}
+
+.footer p {
+    text-transform: uppercase;
+    letter-spacing: .3em;
+    font-size: .8rem;
+    margin-bottom: 2rem;
 }
 
 .footer a {
     color: #faf1e6;
-}
-
-.footer p{
-    font-size: 1rem;
 }
