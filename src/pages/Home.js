@@ -6,62 +6,67 @@ import TextContent from "../components/content/TextContent/TextContent";
 import Image from "../components/content/ImageContainers/Image";
 import AboutText from "../components/content/TextContent/AboutText";
 import { useEffect, useState } from "react";
+import { fetchData } from "../lib/fetchData";
 import sanityClient from "../client/client";
+import { fetchHeader } from "../lib/fetchHeader";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const Home = () => {
   const [content, setContent] = useState(null);
+  const [header, setHeader] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const param = "Home";
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await sanityClient.fetch(
-        `*[_type == "content" && page == "Home"]{
-          body,
-          title,
-          _id,
-          mainImage {
-            asset -> {
-              _id,
-              url
-            }
-          }
-      }`
-      );
-      setContent(data);
+    setIsLoading(true);
+
+    fetchHeader(sanityClient, param)
+      .then((data) => {
+        setHeader(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    fetchData(sanityClient, param)
+      .then((data) => {
+        setContent(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+
+
+
+    return () => {
+      setHeader(null);
+      setContent(null);
     };
-    try {
-      fetchData();
-    } catch (error) {
-      console.log(error.message);
-    }
-    return () => setContent(null);
-  }, []);
+  }, [param]);
 
   return (
     <>
-      <Banner image={Backsplash} alt="river rocks img" />
-      <TextBanner
-        title="Kevin Carter Smith, J.D."
-        content="An experienced entrepreneur, author, lawyer and healer with a successful career in software management, a healing and deliverance ministry leader with a history of using the prophetic and Spirit led wisdom to solve and prepare for modern challenges."
-      />
-      <AboutText />
-      {content && (
+      <Banner image={Backsplash} alt="river rocks" />
+      {header && (
         <>
-          <Card key={content[0]._id}>
-            <TextContent header={content[0].title} content={content[0].body} />
-            <Image
-              key={content[0]._id}
-              image={content[0].mainImage.asset.url}
-            />
-          </Card>
-          <Card key={content[1]._id}>
-            <Image
-              key={content[1]._id}
-              image={content[1].mainImage.asset.url}
-            />
-            <TextContent header={content[1].title} content={content[1].body} />
-          </Card>
+          <TextBanner title={header[0].title} content={header[0].header} />
+          <AboutText title={header[0].subtitle} content={header[0].subheader} />
         </>
       )}
+      {isLoading && <div className="centered"><LoadingSpinner /></div>}
+      {content &&
+        content.map((item, index) => (
+          <Card
+            key={item._id}
+            style={index % 2 === 0 ? { flexDirection: "row-reverse" } : null}
+          >
+            <TextContent header={item.title} content={item.body} />
+            <Image key={item._id} image={item.mainImage.asset.url} />
+          </Card>
+        ))}
     </>
   );
 };

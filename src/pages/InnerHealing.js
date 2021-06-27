@@ -1,19 +1,52 @@
-import Calendar from '../components/calendar/Calendar'
-import TextBanner from '../components/content/TextContent/TextBanner';
-import classes from './InnerHealing.module.css';
+import { useEffect, useState } from "react";
+import Calendar from "../components/calendar/Calendar";
+import TextBanner from "../components/content/TextContent/TextBanner";
+import classes from "./InnerHealing.module.css";
+import { useLocation } from "react-router-dom";
+import { fetchHeader } from "../lib/fetchHeader";
+import sanityClient from "../client/client";
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 
 const InnerHealing = () => {
-    return (
-        <>
-            <TextBanner
-                title="Inner Healing"
-                content="An inner healing session is a private 1:1 or 2:1 prayer appointment for divine heart-healing with a trained inner healing prayer minister and/or a team of 2 ministers - one who facilitates and one who intercedes. It is a transformative time for incredible healing with Jesus that most often leads to a powerful breakthrough. You are not only prayed for, but prayed with. The bible-based, Spirit-led session will guide you into an encounter with the Lord and often reveal hidden wounds or lies/ungodly beliefs that are replaced with Truth and inspired revelation."
-            />
-            <h2 className={classes.appointment}>Schedule an Appointment through Calendly</h2>
-            <Calendar/>
+  const [header, setHeader] = useState(null);
+  const [isLoading, setIsLoading] = useState(null);
 
-        </>
-    )
-}
+  const router = useLocation();
+
+  const location = router.pathname.replace(/[^\w\s]/gi, "");
+
+  const param = location.charAt(0).toUpperCase() + location.slice(1);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchHeader(sanityClient, param)
+      .then((data) => {
+        setHeader(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, [param]);
+
+  return (
+    <>
+
+      {header && (
+        <TextBanner title={header[0].title} content={header[0].header} />
+      )}
+      <h2 className={classes.appointment}>
+        Schedule an Appointment through Calendly
+      </h2>
+      {isLoading && (
+        <div className="centered">
+          <LoadingSpinner />
+        </div>
+      )}
+      <Calendar />
+    </>
+  );
+};
 
 export default InnerHealing;

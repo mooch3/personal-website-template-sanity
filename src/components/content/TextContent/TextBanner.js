@@ -1,12 +1,18 @@
-import classes from './TextBanner.module.css';
+import classes from "./TextBanner.module.css";
+import BlockContent from "@sanity/block-content-to-react";
+import sanityClient from "../../../client/client";
 
-const TextBanner = (props) => {
-    return (
-        <div className={classes['text-banner']}>
-            <h1>{props.title}</h1>
-            <p>{props.content}</p>
-        </div>
-    )
-}
+const TextBanner = ({ title, content }) => {
+  return (
+    <div className={classes["text-banner"]}>
+      <h1>{title}</h1>
+      <BlockContent
+        blocks={content}
+        projectId={sanityClient.clientConfig.projectId}
+        dataset={sanityClient.clientConfig.dataset}
+      />
+    </div>
+  );
+};
 
 export default TextBanner;

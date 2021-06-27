@@ -6,64 +6,74 @@ import Rainier from "../assets/images/rainier.jpg";
 import Card from "../components/ui/Card";
 import { useEffect, useState } from "react";
 import sanityClient from "../client/client";
+import { fetchData } from "../lib/fetchData";
+import { useLocation } from "react-router-dom";
+import { fetchHeader } from "../lib/fetchHeader";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 const About = () => {
-  const [data, setData] = useState(null);
+  const [content, setContent] = useState(null);
+  const [about, setAbout] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useLocation();
+  const location = router.pathname.replace(/[^\w\s]/gi, "");
+  const param = location.charAt(0).toUpperCase() + location.slice(1);
+
+  // useEffect(() => {
+
+  // }, [param]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const fetchedData = await sanityClient.fetch(
-        `*[_type == "content" && page == "About"]{
-        body,
-        title,
-        _id,
-        mainImage {
-          asset -> {
-            _id,
-            url
-          }
-        }
-    }`
-      );
-      console.log(fetchedData);
-      setData(fetchedData);
-    };
-    try {
-      fetchData();
-    } catch (error) {
-      console.log(error.message);
-    }
+    setIsLoading(true);
 
-    return () => setData(null);
-  }, []);
+    fetchHeader(sanityClient, param)
+      .then((data) => {
+        setAbout(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    fetchData(sanityClient, param)
+      .then((data) => {
+        setContent(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
+
+
+
+    return () => {
+      setAbout(null);
+      setContent(null);
+    };
+  }, [param]);
 
   return (
     <>
       <Banner image={Rainier} alt="picture of rainier mountain" />
-      <TextBanner
-        title="Kevin Smith"
-        content="With a degree in chemistry and a passion for emergency preparedness, Kevin Smith has tested clothing that combines metals with science to protect the wearer from viruses, bacteria, and rough terrain. He tested the clothing in all climates, hiking and camping in six continents. Impressed with all their functionality, he has felt inspired to help others build an essential emergency preparedness wardrobe."
-      />
-      {data && (
-        <>
-          <Card>
-            {data[0].mainImage && <Image image={data[0].mainImage.asset.url} />}
-            <TextContent
-              header={data[0].title}
-              content={data[0].body}
-              noBtn={true}
-            />
-          </Card>
-          <Card>
-            <TextContent
-              header={data[1].title}
-              content={data[1].body}
-              noBtn={true}
-            />
-            <Image image={data[1].mainImage.asset.url} />
-          </Card>
-        </>
+      {about && <TextBanner title={about[0].title} content={about[0].header} />}
+      {isLoading && (
+        <div className="centered">
+          <LoadingSpinner />
+        </div>
       )}
+      {content &&
+        content.map((item, index) => (
+          <Card
+            key={item._id}
+            style={index % 2 === 0 ? { flexDirection: "row-reverse" } : null}
+          >
+            <TextContent header={item.title} content={item.body} />
+            {item.mainImage && (
+              <Image key={item._id} image={item.mainImage.asset.url} />
+            )}
+          </Card>
+        ))}
     </>
   );
 };

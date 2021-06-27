@@ -2,7 +2,7 @@
     width: 100%;
     background-color: #e4efe7;
     padding: 3% 5% 5% 5%;
-    margin: 3rem;
+    margin: 2rem 1rem;
     line-height: 1.6;
 }
 
@@ -22,7 +22,7 @@
     font-weight: 300;
     font-size: 1rem;
     margin-bottom: 1.5rem;
-    line-height: 2;
+    line-height: 1.6;
 }
 .text-content p:last-child {
     margin-bottom: 3rem;

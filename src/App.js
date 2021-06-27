@@ -14,7 +14,7 @@ const InnerHealing = React.lazy(() => import('./pages/InnerHealing'));
 function App() {
   return (
    <Layout>
-    <Suspense fallback={<div className="centered"><LoadingSpinner></LoadingSpinner></div>}>
+    <Suspense fallback={<div className="centered"><LoadingSpinner /></div>}>
       <Switch>
         <Route path="/" exact>
           <Home />
