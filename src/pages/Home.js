@@ -64,7 +64,9 @@ const Home = () => {
             style={index % 2 === 0 ? { flexDirection: "row-reverse" } : null}
           >
             <TextContent header={item.title} content={item.body} />
-            <Image key={item._id} image={item.mainImage.asset.url} />
+            {item.mainImage && (
+              <Image key={item._id} image={item.mainImage.asset.url} />
+            )}
           </Card>
         ))}
     </>

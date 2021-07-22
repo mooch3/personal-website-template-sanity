@@ -41,8 +41,6 @@ const Publications = () => {
         setIsLoading(false);
       });
 
-  
-
     return () => {
       setHeader(null);
       setContent(null);
@@ -55,7 +53,11 @@ const Publications = () => {
       {header && (
         <TextBanner title={header[0].title} content={header[0].header} />
       )}
-      {isLoading && <div className="centered"><LoadingSpinner /></div>}
+      {isLoading && (
+        <div className="centered">
+          <LoadingSpinner />
+        </div>
+      )}
       {content &&
         content.map((item, index) => (
           <Card
@@ -63,7 +65,9 @@ const Publications = () => {
             style={index % 2 === 0 ? { flexDirection: "row-reverse" } : null}
           >
             <TextContent header={item.title} content={item.body} />
-            {item.mainImage && <Image key={item._id} image={item.mainImage.asset.url} />}
+            {item.mainImage && (
+              <Image key={item._id} image={item.mainImage.asset.url} />
+            )}
           </Card>
         ))}
     </>

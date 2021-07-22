@@ -1,7 +1,7 @@
 import sanityClient from "@sanity/client";
 
 export default sanityClient({
-  projectId: "len12xns", // find this at manage.sanity.io or in your sanity.json
-  dataset: "production", // this is from those question during 'sanity init'
+  projectId: process.env.SANITY_PROJECT_ID,
+  dataset: "production",
   useCdn: true,
 });

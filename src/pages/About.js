@@ -20,10 +20,6 @@ const About = () => {
   const location = router.pathname.replace(/[^\w\s]/gi, "");
   const param = location.charAt(0).toUpperCase() + location.slice(1);
 
-  // useEffect(() => {
-
-  // }, [param]);
-
   useEffect(() => {
     setIsLoading(true);
 

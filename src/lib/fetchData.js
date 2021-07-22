@@ -12,7 +12,6 @@ export const fetchData = async (sanityClient, page) => {
             }
         }`;
   const retrievedData = await sanityClient.fetch(query, params);
-  console.log(retrievedData);
 
   return retrievedData;
 };
